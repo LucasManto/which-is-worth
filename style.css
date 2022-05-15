@@ -1,0 +1,67 @@
+:root {
+  --background-color: #ededed;
+  --text-color: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background-color: var(--background-color);
+}
+
+h1 {
+  margin: 16px 0;
+}
+
+input {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 4px;
+  margin: 4px;
+  width: 100px;
+}
+
+select {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 4px;
+  margin: 4px;
+  width: 100px;
+}
+
+.product-container {
+  max-width: 600px;
+  padding: 16px;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.product-header span {
+  width: 100px;
+  text-align: center;
+}
+
+.product {
+  display: flex;
+  justify-content: space-between;
+}
+
+#worth-message {
+  margin: 8px 0;
+}
