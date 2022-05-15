@@ -15,12 +15,16 @@
   </select>
 
   <div class="product">
-    <input type="text" placeholder="Price" class="product-price">
+    <input type="number" min="0" step="0.01" placeholder="Price" class="product-price">
+    <input type="number" min="0" placeholder="Amount" class="product-amount">
     <select class="product-unit"></select>
   </div>
   <div class="product">
-    <input type="text" placeholder="Price" class="product-price">
+    <input type="number" min="0" step="0.01" placeholder="Price" class="product-price">
+    <input type="number" min="0" placeholder="Amount" class="product-amount">
     <select class="product-unit"></select>
   </div>
+
+  <p id="worth-message">Change values above to find out which product is worth</p>
 </body>
 </html>

@@ -1,9 +1,11 @@
 const unitElement = document.getElementById("unit");
+const worthMessageElement = document.getElementById("worth-message");
 
 init();
 
 function init() {
   setupUnitElement();
+  setupProductsElements();
 }
 
 function setupUnitElement() {
@@ -76,4 +78,93 @@ function createOptionWithPlaceholderAndValue({placeholder, value}) {
   option.value = value;
   option.innerText = placeholder;
   return option;
+}
+
+function setupProductsElements() {
+  const productElements = getProductElements();
+  attachProductInputListener(productElements);
+}
+
+function getProductElements() {
+  return document.querySelectorAll(".product");
+}
+
+function attachProductInputListener(productElements) {
+  productElements.forEach(productElement => {
+    const children = productElement.children;
+    attachProductsChildrenInputListener(children);
+  })
+}
+
+function attachProductsChildrenInputListener(children) {
+  Array.from(children).forEach(child => child.addEventListener("input", whichIsWorth));
+}
+
+function whichIsWorth() {
+  const productElements = getProductElements();
+  const worthProductPosition = getWorthProductPosition(productElements);
+  updateWorthProductMessage(worthProductPosition);
+}
+
+function getWorthProductPosition(productElements) {
+  const productsAttributes = getProductAttributes(productElements);
+  const worthProductIndex = getWorthProductIndex(productsAttributes);
+  return worthProductIndex != null ? worthProductIndex + 1 : null;
+}
+
+function getProductAttributes(productElements) {
+  return Array.from(productElements).map(productElement => {
+    const price = productElement.querySelector(".product-price").value;
+    const amount = productElement.querySelector(".product-amount").value;
+    const unit = productElement.querySelector(".product-unit").value;
+
+    return {
+      price,
+      amount,
+      unit
+    };
+  });
+}
+
+function getWorthProductIndex(productsAttributes) {
+  const productsValues = productsAttributes.map(getProductValue);
+  const isSomeValueInvalid = productsValues.some(isInvalid);
+  if (isSomeValueInvalid) {
+    return null;
+  }
+  return findWorthProductIndex(productsValues);
+}
+
+function getProductValue({ price, amount, unit }) {
+  const isAnyAttributeMissing = !price || !amount || !unit;
+  if (isAnyAttributeMissing) {
+    return null;
+  }
+  return price / (amount * unit);
+}
+
+function isInvalid(value) {
+  return value === null;
+}
+
+function findWorthProductIndex(productsValues) {
+  let minValue = productsValues[0];
+  let worthProductIndex = 0;
+
+  productsValues.forEach((value, index) => {
+    if (value < minValue) {
+      minValue = value;
+      worthProductIndex = index;
+    }
+  });
+
+  return worthProductIndex;
+}
+
+function updateWorthProductMessage(worthProductPosition) {
+  let message = "Change values above to find out which product is worth";
+  if (worthProductPosition) {
+    message = `Product ${worthProductPosition} is worth!`;
+  }
+  worthMessageElement.innerText = message;
 }
