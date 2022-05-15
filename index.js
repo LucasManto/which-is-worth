@@ -1,19 +1,14 @@
-let unitElement;
+const unitElement = document.getElementById("unit");
 
-window.addEventListener("load", init);
+init();
 
 function init() {
   setupUnitElement();
 }
 
 function setupUnitElement() {
-  initializeUnitElement();
   addUnitOptions();
   attachUnitChangeListener();
-}
-
-function initializeUnitElement() {
-  unitElement = document.getElementById("unit");
 }
 
 function addUnitOptions() {
